@@ -1,21 +1,8 @@
 /* Neon Palms Cover Studio — editor chrome.
    Dark UI, neon sunset accents. The cover itself is drawn on canvas. */
 
-@font-face {
-  font-family: 'Anton';
-  src: url('fonts/Anton-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pacifico';
-  src: url('fonts/Pacifico-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Lettering uses system fonts only: a condensed bold stack for titles
+   and a script stack for the tagline. No font files ship with the app. */
 
 :root {
   --bg: #12081d;
@@ -66,8 +53,9 @@ body {
 }
 
 .brand h1 {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
+  font-family: 'Arial Narrow', 'Helvetica Neue Condensed', 'Roboto Condensed', 'Noto Sans Condensed', Arial, sans-serif;
+  font-weight: 700;
+  font-stretch: condensed;
   font-size: 26px;
   letter-spacing: 1px;
   margin: 0;
@@ -170,8 +158,9 @@ button.active {
 }
 
 .group h2 {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
+  font-family: 'Arial Narrow', 'Helvetica Neue Condensed', 'Roboto Condensed', 'Noto Sans Condensed', Arial, sans-serif;
+  font-weight: 700;
+  font-stretch: condensed;
   font-size: 15px;
   letter-spacing: 1px;
   text-transform: uppercase;
