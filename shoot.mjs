@@ -117,12 +117,15 @@ async function main() {
       await page.setViewportSize({ width: 1280, height: 800 });
       await page.goto(`${BASE}/`, { waitUntil: 'load' });
       await page.waitForFunction(() => window.__studioReady === true, null, { timeout: 20000 });
+      // Lettering is system fonts only: no webfont should ever load,
+      // and the title/tagline stacks must resolve to installed fonts.
       const fontsOk = await page.evaluate(() => ({
-        anton: document.fonts.check('16px Anton'),
-        pacifico: document.fonts.check('16px Pacifico'),
+        webfonts: document.fonts.size,
+        titleStack: document.fonts.check('bold 16px sans-serif'),
+        scriptStack: document.fonts.check('16px cursive'),
       }));
-      notes.push(`fonts loaded: Anton=${fontsOk.anton} Pacifico=${fontsOk.pacifico}`);
-      if (!fontsOk.anton || !fontsOk.pacifico) failures.push('bundled fonts did not load');
+      notes.push(`fonts: ${fontsOk.webfonts} webfonts loaded, title stack resolves=${fontsOk.titleStack}, script stack resolves=${fontsOk.scriptStack}`);
+      if (fontsOk.webfonts !== 0 || !fontsOk.titleStack || !fontsOk.scriptStack) failures.push('lettering stacks did not resolve to system fonts');
 
       const exports = [
         ['#exportSquare', 1080, 1080],
