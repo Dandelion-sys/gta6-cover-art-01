@@ -240,12 +240,16 @@ function drawGrain(ctx, W, H, strength) {
   ctx.restore();
 }
 
+// Lettering stacks, system fonts only — no font files ship with the app.
+const TITLE_FACE = `'Arial Narrow', 'Helvetica Neue Condensed', 'Roboto Condensed', 'Noto Sans Condensed', Arial, sans-serif`;
+const TAGLINE_FACE = `'Segoe Script', 'Lucida Handwriting', 'Brush Script MT', 'Snell Roundhand', 'Bradley Hand', cursive`;
+
 function fitFont(ctx, text, fontFamily, maxWidth, startSize) {
   let size = startSize;
-  ctx.font = `${size}px ${fontFamily}`;
+  ctx.font = `bold ${size}px ${fontFamily}`;
   while (size > 12 && ctx.measureText(text).width > maxWidth) {
     size *= 0.92;
-    ctx.font = `${size}px ${fontFamily}`;
+    ctx.font = `bold ${size}px ${fontFamily}`;
   }
   return size;
 }
@@ -262,7 +266,7 @@ function drawTitleBlock(ctx, W, H, state, grade) {
   const title = (state.title || '').toUpperCase();
   const maxW = W * 0.88;
   const baseSize = H * 0.082 * (state.titleSize || 1);
-  const size = fitFont(ctx, title || ' ', 'Anton, sans-serif', maxW, baseSize);
+  const size = fitFont(ctx, title || ' ', TITLE_FACE, maxW, baseSize);
   const tag = (state.tagline || '').trim();
   const tagSize = Math.max(14, H * 0.03);
   // Anchor from the bottom so the tagline can never slip past the edge.
@@ -284,10 +288,10 @@ function drawTitleBlock(ctx, W, H, state, grade) {
   ctx.shadowBlur = 0;
   ctx.shadowOffsetY = 0;
   if (tag) {
-    ctx.font = `${tagSize}px Pacifico, cursive`;
+    ctx.font = `${tagSize}px ${TAGLINE_FACE}`;
     const tw = ctx.measureText(tag).width;
     if (tw > maxW) {
-      ctx.font = `${Math.max(12, (tagSize * maxW) / tw)}px Pacifico, cursive`;
+      ctx.font = `${Math.max(12, (tagSize * maxW) / tw)}px ${TAGLINE_FACE}`;
     }
     ctx.fillStyle = '#ffe9a8';
     ctx.fillText(tag, W / 2, tagY);
@@ -321,9 +325,9 @@ function drawBadge(ctx, W, H) {
   ctx.fillStyle = '#14060f';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `${Math.round(s * 0.16)}px Anton, sans-serif`;
+  ctx.font = `bold ${Math.round(s * 0.16)}px ${TITLE_FACE}`;
   ctx.fillText('EST. 2026', 0, -s * 0.08);
-  ctx.font = `${Math.round(s * 0.13)}px Anton, sans-serif`;
+  ctx.font = `bold ${Math.round(s * 0.13)}px ${TITLE_FACE}`;
   ctx.fillText('★ NEON ★', 0, s * 0.14);
   ctx.restore();
 }
