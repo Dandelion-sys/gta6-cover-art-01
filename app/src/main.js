@@ -1,7 +1,8 @@
 // Neon Palms Cover Studio — editor.
 // Wires the controls to the cover engine, holds the undo stack, exports PNGs
 // and runs the ?shot= scenes the screenshots are taken from. No network:
-// photos come from the machine or from app/samples, fonts from app/fonts.
+// photos come from the machine or from app/samples; lettering uses
+// system fonts, so no font files ship with the app.
 
 import {
   SIZES,
